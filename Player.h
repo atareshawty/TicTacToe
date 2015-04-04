@@ -8,11 +8,11 @@ class Player {
 		int turn, positionGuess;
 		string character;
 		string name;
+	public:		
 		void setPositionGuess(int x);
 		void setCharacter(string x);
 		void setTurn(int x);
 		void setName(string x);
-	public:
 		void setPlayerInfo();
 		void setPlayerGuess();
 		int getPositionGuess();

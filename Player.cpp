@@ -41,10 +41,8 @@ void Player::setPlayerInfo() {
 	
 	string name, character;
 	cout << "Player " << this->getTurn() << ", what is your name? ";
-	cin.ignore();
 	getline(cin, name);
 	cout << "What character to you wish to use on the board? ";
-	cin.ignore();
 	getline(cin, character);
 	cout << endl;
 
