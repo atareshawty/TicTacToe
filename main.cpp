@@ -1,52 +1,52 @@
 /*
 Author: Alex Tareshawty
-This program will be a two player tic tac toe game. For now, both users are be human
+This program will be a two player tic tac toe game. For now, both players are human
 */
 
 #include <iostream>
 #include <string>
 #include "Board.h"
-#include "Player.h"
+#include "HumanPlayer.h"
 using namespace std;
 
-void cleanInput() {
+void cleanStream() {
 	while (getchar() != '\n');
 }
 
 int main() {
 
-	Board *playingBoard = new Board();
-	Player *player1 = new Player(), *player2 = new Player();
-	int fullTiles = playingBoard->getFullTiles();
-	bool gameOver = false;
+	HumanPlayer *player1 = new HumanPlayer();
+	HumanPlayer *player2 = new HumanPlayer();
+	Board *board = new Board();
 
-	cout << "Welcome to Tic-Tac-Toe!\n";
-	cout << "Before we start playing, I need some information about the two players\n";
-	cout << endl;
-	player1->setTurn(1);
-	player1->setPlayerInfo();
-	player2->setTurn(2);
-	player2->setPlayerInfo();
-	cout << "Great! Thank you\nHere is your playing board:\n";
-	playingBoard->printBoard();
+	player1->setPlayerInfo(1);
+	cleanStream();
+	player2->setPlayerInfo(2);
+	cleanStream();
 
-	while (fullTiles < 9 && !gameOver) {
-		if (fullTiles % 2 == 0) {
-			player1->setPlayerGuess();
-			playingBoard->changeTile(player1->getPositionGuess(), 
-									player1->getCharacter());
+	cout << "This is the playing board, make your guesses according"
+		 << " to the values" << endl;
+
+	board->printBoard();
+	board->setSymbols(player1->getSymbol(), player2->getSymbol());
+
+	for (int i = 0; i < 9; i++) {
+		if (i % 2 == 0) {
+			if (board->move(player1->getSymbol(), player1->getName())) {
+				cout << player1->getName() << " is the winner!" << endl;
+				board->printBoard();
+				return 0;
+			}
 		} else {
-			player2->setPlayerGuess();
-			playingBoard->changeTile(player2->getPositionGuess(), 
-									player2->getCharacter());
+			if (board->move(player2->getSymbol(), player2->getName())) {
+				cout << player2->getName() << " is the winner!" << endl;
+				board->printBoard();
+				return 0;
+			}
 		}
-		fullTiles = playingBoard->getFullTiles();
-		playingBoard->printBoard();
+		board->printBoard();
 	}
 
-	free(playingBoard);
-	free(player1);
-	free(player2);
-
+	cout << "Draw" << endl;
 	return 0;
 }
