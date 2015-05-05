@@ -14,7 +14,7 @@ void Board::printBoard() {
 	}
 }
 
-void Board::setSymbols(char symbol1, char symbol2) {
+Board::Board(char symbol1, char symbol2) {
 	this->symbol1 = symbol1;
 	this->symbol2 = symbol2;
 } 

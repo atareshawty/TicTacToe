@@ -40,14 +40,14 @@ public:
 	bool move(char symbol, string name);
 
 	/*
-	Sets the two symbols that will be placed on the board
+	Constructor
 
 	@param symbol1
 			1st symbol to be added
 	@param symbol2
 			2nd symbol to be added
 	*/
-	void setSymbols(char symbol1, char symbol2);
+	Board(char symbol1, char symbol2);
 };
 
 #endif

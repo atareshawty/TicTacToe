@@ -10,13 +10,29 @@ class HumanPlayer {
 
 	//Name of player for game personalization
 	string name;
-
-	//Indicates which turn player is (1 or 2)
-	int turn;
 public:
 
-	void setPlayerInfo(int x);
+	/*
+	Constructor
+	@param name
+			Name associated with each player
+	@param symbol
+			Character the player can place on the board 
+	*/
+	HumanPlayer(string name, char symbol);
+	
+	/*
+	Get player's symbol
+	@return getSymbol
+			 symbol
+	*/
 	char getSymbol();
+	
+	/*
+	Get player's name
+	@return getName
+			 name
+	*/
 	string getName();
 };
 #endif
