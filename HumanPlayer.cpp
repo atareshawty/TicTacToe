@@ -16,6 +16,7 @@ void HumanPlayer::setPlayerInfo(int x) {
 
 	this->name = name;
 	this->symbol = symbol;
+	this->turn = x;
 }
 
 char HumanPlayer::getSymbol() {

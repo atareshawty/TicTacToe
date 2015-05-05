@@ -7,14 +7,26 @@
 using namespace std;
 
 class Board {
+	/*
+	A playing board is represented as a 3x3 grid 
+	A new board is initialized with numberical labels for each space
+	in the grid.
+	*/
 	char spaces[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+
+	/*
+	Symbol1 and symbol2 represent the two characters that can be 
+	placed on the board by each player. These can be used for checking
+	for a winner
+	*/
 	char symbol1, symbol2;
 public:
 	//Prints playing board with updated symbols
 	void printBoard();
 
 	/*
-	Updates board with new move. Will prompt for repeated input
+	Updates board with new move by prompting for position to make move.
+	Will prompt for repeated input
 	until the input is invalid.
 
 	@param symbol
