@@ -1,9 +1,3 @@
-/*
-@author Alex Tareshawty
-
-Two player tic-tac-toe game on 3x3 grid. Both players are human.
-*/
-
 #include <iostream>
 #include "Board.h"
 #include "HumanPlayer.h"
