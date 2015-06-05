@@ -9,49 +9,70 @@ Board::Board(char playerSymbol1, char playerSymbol2) {
 	this->playerSymbol2 = playerSymbol2;
 } 
 
+Board::Board() {
+	playerSymbol1 = 'X';
+	playerSymbol2 = 'O';
+}
+
 void Board::printCurrentBoard() {
 	for (int i = 0; i < 3; i++) {
 		for (int k = 0; k < 3; k++) {
-			cout << "|" << this->spaces[i + k];
+			cout << "|" << spaces[(3 * i) + k];
 		}
 		cout << "|" << endl;
 		cout << "-------" << endl;
 	}
 }
 
-void Board::placeMoveOnBoard(char playerSymbol, string playerName) {
+void Board::placeMoveOnBoard(char playerSymbol, int spaceLocation) {
+	spaces[spaceLocation] = playerSymbol;
+}
 
+bool Board::isSpaceAlreadyPlayed(int spaceLocation) {
+	return this->spaces[spaceLocation] == this->playerSymbol1 || 
+		   this->spaces[spaceLocation] == this->playerSymbol2;
 }
 
 bool Board::isWinner() {
-	return this->isWinnerByColumns() ||
-		   this->isWinnerByRows() ||
-		   this->isWinnerByTopLeftToBottomRightDiagonal() ||
-		   this->isWinnerByBottemLeftToTopRightDiagonal();
+	return isWinnerByColumns() ||
+		   isWinnerByRows() ||
+		   isWinnerByTopLeftToBottomRightDiagonal() ||
+		   isWinnerByBottemLeftToTopRightDiagonal();
 }
 
 bool Board::isWinnerByColumns() {
-	char symbolToCheckAgainst = this->spaces[0];
-	for (int i = 0; i < 3; i++) {
-		for (int k = 0; k < 3; k++) {
-			if (this->spaces[i + 3] != symbolToCheckAgainst) {
-				return false;
-			}
+	char symbolToCheckAgainst;
+	int numberOfLikeSpacesInColumn;
+	bool isWinnerByColumns = false;
+	for (int topOfColumn = 0; topOfColumn < 3; topOfColumn++) {
+		symbolToCheckAgainst = spaces[topOfColumn];
+		numberOfLikeSpacesInColumn = 1;
+		for (int rowMult = 1; rowMult < 3; rowMult++) {
+			if (symbolToCheckAgainst == spaces[topOfColumn + (rowMult * 3)])
+				numberOfLikeSpacesInColumn++;
+		}
+		if (numberOfLikeSpacesInColumn == 3) {
+			isWinnerByColumns = true;
 		}
 	}
-	return true;
+	return isWinnerByColumns;
 }
 
 bool Board::isWinnerByRows() {
-	char symbolToCheckAgainst = this->spaces[0];
-	for (int i = 0; i < 3; i++) {
-		for (int k = 0; k < 3; k++) {
-			if (this->spaces[i + k] != symbolToCheckAgainst) {
-				return false;
-			}
+	char symbolToCheckAgainst;
+	int numberOfLikeSpacesInRow;
+	bool isWinnerByRows = false;
+	for (int row = 0; row < 3; row++) {
+		symbolToCheckAgainst = spaces[3 * row];
+		numberOfLikeSpacesInRow = 1;
+		for (int column = 1; column < 3; column++) {
+			if (symbolToCheckAgainst == spaces[(3 * row) + column]) 
+				numberOfLikeSpacesInRow++;
 		}
+		if (numberOfLikeSpacesInRow == 3)
+			isWinnerByRows = true;
 	}
-	return true;
+	return isWinnerByRows;
 }
 
 bool Board::isWinnerByTopLeftToBottomRightDiagonal() {
@@ -60,16 +81,4 @@ bool Board::isWinnerByTopLeftToBottomRightDiagonal() {
 
 bool Board::isWinnerByBottemLeftToTopRightDiagonal() {
 	return (this->spaces[6] == this->spaces[4]) && (this->spaces[4] == this->spaces[2]);
-	return true;
 }
-
-void Board::getPlayerMove(string playerName) {
-	do {
-		cout << playerName << ", enter your move: ";
-		cin >> this->spacePlayed;
-		this->spacePlayed--;
-	} while (!(0 <= spacePlayed && spacePlayed <= 8) ||
-			 this->spaces[this->spacePlayed] == this->playerSymbol1 ||
-			 this->spaces[this->spacePlayed] == this->playerSymbol2);
-}
-
